@@ -1,47 +1,23 @@
-#pragma once
+#include "SystemOperate.h"
 
-#include <io.h>
-#include <direct.h>
+void File::Write(std::string content) {
+    std::fstream file;
+    file.open(Path.data(),std::ios::out | std::ios::trunc);
+    file << content << std::endl;
+    file.close();
+}
 
-#include <fstream>
-#include <string>
-#include <cstring>
-#include <vector>
-
-#include <Tlhelp32.h>
-
-#include "Bitscode.hpp"
-
-class File{
-    public:
-        std::string Name;
-        std::string DirPath;
-        std::string Path;
-        File(std::string dirPath,std::string fileName){
-            Name = fileName;
-            DirPath = dirPath;
-            Path = dirPath + "\\" + fileName;
-        };
-
-        void Write(std::string content){
-            std::fstream file;
-            file.open(Path.data(),std::ios::out | std::ios::trunc);
-            file << content << std::endl;
-            file.close();
-        };
-
-        bool Read(std::string* content){
-            std::fstream file;
-            file.open(Path.data(),std::ios::in);
-            if(!file){
-                return false;
-            }else{
-                file >> *content;
-                file.close();
-                return true;
-            }
-        };
-};
+void File::Read(std::string *content) {
+    std::fstream file;
+    file.open(Path.data(),std::ios::in);
+    if(!file){
+        return false;
+    }else{
+        file >> *content;
+        file.close();
+        return true;
+    }
+}
 
 bool ExeCmd(char* cmd,char* result){
     char buffer[256];

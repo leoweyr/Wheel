@@ -1,8 +1,4 @@
-#pragma once
-
-#include <string>
-#include <cstring>
-#include <vector>
+#include "Bitscode.h"
 
 void CharToString(std::string &dest_str,char *source_charArray){
     int charLen = strlen(source_charArray);
