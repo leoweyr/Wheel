@@ -1,19 +1,30 @@
 #include "File.h"
 
-N_File::C_File::C_File(std::string dirPath, std::string fileName) {
-    m_name = fileName;
-    m_dirPath = dirPath;
-    m_path = dirPath + "\\" + fileName;
+N_File::C_File::C_File(const std::string path) {
+    m_path = path;
+    for(size_t i=0,iMax=StringSplit(m_path,"\\").size();i < iMax - 1;i++){
+        if(i != iMax - 2){
+            m_dirPath += StringSplit(m_path,"\\")[i] + "\\";
+            if(_access(m_dirPath.data(),0) == -1){
+                _mkdir(m_dirPath.data());
+            }
+        }else{
+            m_dirPath += StringSplit(m_path,"\\")[i];
+            if(_access(m_dirPath.data(),0) == -1){
+                _mkdir(m_dirPath.data());
+            }
+        }
+    }
 }
 
-void N_File::C_File::Write(std::string content) {
+void N_File::C_File::Write(const std::string content) {
     std::fstream file;
     file.open(m_path.data(), std::ios::out | std::ios::trunc);
     file << content << std::endl;
     file.close();
 }
 
-void N_File::C_File::Write(Json::Value content) {
+void N_File::C_File::Write(const Json::Value content) {
     std::fstream file;
     Json::FastWriter fastWriter;
     file.open(m_path.data(), std::ios::out | std::ios::trunc);

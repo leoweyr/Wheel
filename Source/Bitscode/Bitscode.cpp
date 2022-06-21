@@ -9,7 +9,7 @@ void CharToString(std::string &dest_str,char *source_charArray){
     }
 }
 
-void StringToChar(char *dest_charArray,std::string &source_str){
+void StringToChar(char *dest_charArray,const std::string &source_str){
     int charLen = source_str.length();
     for (size_t bit=0;bit < charLen;bit++){
         *dest_charArray = source_str.operator[](bit);

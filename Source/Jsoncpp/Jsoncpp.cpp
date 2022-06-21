@@ -3921,7 +3921,7 @@ PathArgument::PathArgument(const char* key) : key_(key), kind_(kindKey) {}
 
 PathArgument::PathArgument(String key) : key_(std::move(key)), kind_(kindKey) {}
 
-// class m_path
+// class Path
 // //////////////////////////////////////////////////////////////////
 
 Path::Path(const String& path, const PathArgument& a1, const PathArgument& a2,

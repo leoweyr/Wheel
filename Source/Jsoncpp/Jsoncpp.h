@@ -425,7 +425,7 @@ class Features;
 // value.h
 using ArrayIndex = unsigned int;
 class StaticString;
-class m_path;
+class Path;
 class PathArgument;
 class Value;
 class ValueIteratorBase;
@@ -1938,7 +1938,7 @@ protected:
 public:
   StreamWriter();
   virtual ~StreamWriter();
-  /** Write_string Value into document as configured in sub-class.
+  /** Write Value into document as configured in sub-class.
    *   Do not take ownership of sout, but maintain a reference during function.
    *   \pre sout != NULL
    *   \return zero on success (For now, we always return zero, so check the
@@ -1959,7 +1959,7 @@ public:
   }; // Factory
 };   // StreamWriter
 
-/** \brief Write_string into stringstream, then return string, for convenience.
+/** \brief Write into stringstream, then return string, for convenience.
  * A StreamWriter will be created from the factory, used, and then deleted.
  */
 String JSON_API writeString(StreamWriter::Factory const& factory,
