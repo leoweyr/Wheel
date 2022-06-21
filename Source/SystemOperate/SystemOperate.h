@@ -3,7 +3,6 @@
 #include <io.h>
 #include <direct.h>
 
-#include <fstream>
 #include <string>
 #include <cstring>
 #include <vector>
@@ -13,21 +12,6 @@
 #include "../../Lib/Bitscode/Bitscode.h"
 
 #pragma comment(lib,"../../Lib/Bitscode/Bitscode.lib")
-
-class File{
-    public:
-        std::string Name;
-        std::string DirPath;
-        std::string Path;
-
-        File(std::string dirPath,std::string fileName){
-            Name = fileName;
-            DirPath = dirPath;
-            Path = dirPath + "\\" + fileName;
-        };
-        void Write(std::string content);
-        bool Read(std::string* content);
-};
 
 bool ExeCmd(char* cmd,char* result);
 

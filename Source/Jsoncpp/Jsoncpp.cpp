@@ -73,7 +73,7 @@ license you like.
 
 
 
-#include "json.h"
+#include "Jsoncpp.h"
 
 #ifndef JSON_IS_AMALGAMATION
 #error "Compile with -I PATH_TO_JSON_DIRECTORY"
@@ -3921,7 +3921,7 @@ PathArgument::PathArgument(const char* key) : key_(key), kind_(kindKey) {}
 
 PathArgument::PathArgument(String key) : key_(std::move(key)), kind_(kindKey) {}
 
-// class Path
+// class m_path
 // //////////////////////////////////////////////////////////////////
 
 Path::Path(const String& path, const PathArgument& a1, const PathArgument& a2,

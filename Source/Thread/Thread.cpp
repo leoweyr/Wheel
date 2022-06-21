@@ -1,4 +1,4 @@
-#include "CThread.h"
+#include "Thread.h"
 
 DWORD WINAPI N_Thread::ThreadProc(LPVOID lpParameter) {
     C_Thread* thread = (C_Thread*)lpParameter;

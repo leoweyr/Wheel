@@ -1,24 +1,5 @@
 #include "SystemOperate.h"
 
-void File::Write(std::string content) {
-    std::fstream file;
-    file.open(Path.data(),std::ios::out | std::ios::trunc);
-    file << content << std::endl;
-    file.close();
-}
-
-void File::Read(std::string *content) {
-    std::fstream file;
-    file.open(Path.data(),std::ios::in);
-    if(!file){
-        return false;
-    }else{
-        file >> *content;
-        file.close();
-        return true;
-    }
-}
-
 bool ExeCmd(char* cmd,char* result){
     char buffer[256];
     FILE* pipe = _popen(cmd,"r");
