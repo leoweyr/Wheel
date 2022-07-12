@@ -17,21 +17,6 @@ N_File::C_File::C_File(const std::string path) {
     }
 }
 
-void N_File::C_File::Write(const std::string content) {
-    std::fstream file;
-    file.open(m_path.data(), std::ios::out | std::ios::trunc);
-    file << content << std::endl;
-    file.close();
-}
-
-void N_File::C_File::Write(const Json::Value content) {
-    std::fstream file;
-    Json::FastWriter fastWriter;
-    file.open(m_path.data(), std::ios::out | std::ios::trunc);
-    file << fastWriter.write(content) << std::endl;
-    file.close();
-}
-
 bool N_File::C_File::Read(std::string &content) {
     std::fstream file;
     file.open(m_path.data(), std::ios::in);
@@ -57,4 +42,19 @@ bool N_File::C_File::Read(Json::Value &content) {
         return false;
     }
     return true;
+}
+
+void N_File::C_File::Write(const std::string content) {
+    std::fstream file;
+    file.open(m_path.data(), std::ios::out | std::ios::trunc);
+    file << content << std::endl;
+    file.close();
+}
+
+void N_File::C_File::Write(const Json::Value content) {
+    std::fstream file;
+    Json::FastWriter fastWriter;
+    file.open(m_path.data(), std::ios::out | std::ios::trunc);
+    file << fastWriter.write(content) << std::endl;
+    file.close();
 }

@@ -20,9 +20,9 @@ namespace N_File{
 
         public:
             C_File(const std::string path);
-            void Write(const std::string content);
-            void Write(const Json::Value content);
             bool Read(std::string &content);
             bool Read(Json::Value &content);
+            void Write(const std::string content);
+            void Write(const Json::Value content);
     };
 }
