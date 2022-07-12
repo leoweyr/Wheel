@@ -1,5 +1,4 @@
 #include "JsonCompare.h"
-#include <iostream>//
 
 Json::Value Json::Compare(const Json::Value compared, const Json::Value referred, Json::Value &same) {
     Json::Value differences, subSame, subDifferences;
