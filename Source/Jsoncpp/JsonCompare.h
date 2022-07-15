@@ -7,7 +7,7 @@
 namespace Json{
     class Comparer{
         private:
-            //Prevent conflict between asynchronous simultaneous outputs (member:public)<differences> and (member:public)<same> and handler method tasks.
+            //Prevent conflict between asynchronous simultaneous outputs (member:public)<differences> and (member:public)<same> and ongoing method tasks.
             int m_jsonLevel = 0;
             Json::Value m_differences_roll_compare;
             Json::Value m_differences_roll_isSame;
