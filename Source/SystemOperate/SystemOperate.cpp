@@ -47,20 +47,6 @@ bool CopyFile(std::string destDir,std::string sourcePath){
     return true;
 }
 
-std::vector<std::string> DirList(std::string &dirPath) {
-    std::vector<std::string> dirFiles;
-    intptr_t hFile = 0;
-    _finddata_t fileInfo;
-    if ((hFile = _findfirst(dirPath.append("/*").c_str(), &fileInfo)) != -1) {
-        while (_findnext(hFile, &fileInfo) == 0) {
-            if (strcmp(fileInfo.name, ".."))
-                dirFiles.push_back(fileInfo.name);
-        }
-        _findclose(hFile);
-    }
-    return dirFiles;
-}
-
 DWORD QueryProcessID(std::string processName) {
     DWORD processID;
     PROCESSENTRY32 pe;

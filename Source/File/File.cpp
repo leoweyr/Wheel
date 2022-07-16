@@ -58,3 +58,22 @@ void N_File::C_File::Write(const Json::Value content) {
     file << fastWriter.write(content) << std::endl;
     file.close();
 }
+
+N_File::C_Dir::C_Dir(const std::string path) {
+    m_path = path;
+}
+
+std::vector <std::string> N_File::C_Dir::List() {
+    std::vector<std::string> filesName;
+    intptr_t hFile = 0;
+    _finddata_t filesInfo;
+    if((hFile = _findfirst(m_path.append("/*").c_str(),&filesInfo)) != -1){
+        while(_findnext(hFile,&filesInfo) == 0){
+            if(strcmp(filesInfo.name,"..")){
+                filesName.push_back(filesInfo.name);
+            }
+        }
+        _findclose(hFile);
+    }
+    return filesName;
+}

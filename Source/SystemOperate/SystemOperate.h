@@ -17,8 +17,6 @@ bool ExeCmd(char* cmd,char* result);
 
 bool CopyFile(std::string destDir,std::string sourcePath);
 
-std::vector<std::string> DirList(std::string &dirPath);
-
 DWORD QueryProcessID(std::string processName);
 
 bool IsProcessExist(DWORD processID);
