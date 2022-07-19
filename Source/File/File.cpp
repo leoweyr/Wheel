@@ -59,7 +59,7 @@ void N_File::C_File::Write(const Json::Value content) {
     file.close();
 }
 
-N_File::C_Dir::C_Dir(const std::string path) {
+N_File::C_Dir::C_Dir(const std::string path = "") {
     if(path.size() == 0){
         char *executorPath;
         executorPath = getcwd(NULL,0);
