@@ -70,6 +70,14 @@ N_File::C_Dir::C_Dir(const std::string path = "") {
     }
 }
 
+bool N_File::C_Dir::isExist() {
+    if(_access(m_path.data(),0) == -1){
+        return false;
+    }else{
+        return true;
+    }
+}
+
 std::vector <std::string> N_File::C_Dir::List() {
     std::vector<std::string> filesName;
     intptr_t hFile = 0;

@@ -35,6 +35,7 @@ namespace N_File{
         public:
             std::string m_path;
             C_Dir(const std::string path);
+            bool isExist();
             std::vector<std::string> List();
     };
 }
