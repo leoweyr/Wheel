@@ -2,6 +2,7 @@
 
 #include "direct.h"
 #include "io.h"
+#include "unistd.h"
 
 #include <fstream>
 
