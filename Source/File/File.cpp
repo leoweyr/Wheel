@@ -60,7 +60,14 @@ void N_File::C_File::Write(const Json::Value content) {
 }
 
 N_File::C_Dir::C_Dir(const std::string path) {
-    m_path = path;
+    if(path.size() == 0){
+        char *executorPath;
+        executorPath = getcwd(NULL,0);
+        m_path = executorPath;
+        free(executorPath);
+    }else{
+        m_path = path;
+    }
 }
 
 std::vector <std::string> N_File::C_Dir::List() {
