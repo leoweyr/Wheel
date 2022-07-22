@@ -59,15 +59,8 @@ void N_File::C_File::Write(const Json::Value content) {
     file.close();
 }
 
-N_File::C_Dir::C_Dir(const std::string path = "") {
-    if(path.size() == 0){
-        char *executorPath;
-        executorPath = getcwd(NULL,0);
-        m_path = executorPath;
-        free(executorPath);
-    }else{
+N_File::C_Dir::C_Dir(const std::string path) {
         m_path = path;
-    }
 }
 
 bool N_File::C_Dir::isExist() {
@@ -91,4 +84,20 @@ std::vector <std::string> N_File::C_Dir::List() {
         _findclose(hFile);
     }
     return filesName;
+}
+
+std::string N_File::GetCurrentExePath() {
+    char currentExePath[MAX_PATH];
+    GetModuleFileName(NULL,(LPSTR)currentExePath, sizeof(currentExePath));
+    std::string currentExePath_str;
+    CharToString(currentExePath_str, currentExePath);
+    return currentExePath_str;
+}
+
+std::string N_File::GetCurrentWorkingDirectoryPath() {
+    char *currentWorkingDirectoryPath;
+    currentWorkingDirectoryPath = getcwd(NULL, 0);
+    std::string currentWorkingDirectoryPath_str = currentWorkingDirectoryPath;
+    free(currentWorkingDirectoryPath);
+    return currentWorkingDirectoryPath_str;
 }
