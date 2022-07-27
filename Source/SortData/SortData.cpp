@@ -1,6 +1,6 @@
 #include "SortData.h"
 
-template <typename T> inline S_SortedData<T> MinData(const S_SortedData<T> dataX, const S_SortedData<T> dataY, int *which = NULL){
+template <typename T> inline S_SortedData<T> MinData(const S_SortedData<T> dataX, const S_SortedData<T> dataY, int *which){
     if(dataX.weight == dataY.weight){
         *which = 0;
         return dataX;
@@ -9,7 +9,7 @@ template <typename T> inline S_SortedData<T> MinData(const S_SortedData<T> dataX
     return (dataX.weight < dataY.weight)?(dataX):(dataY);
 }
 
-template <typename T> inline S_SortedData<T> MaxData(const S_SortedData<T> dataX, const S_SortedData<T> dataY, int *which = NULL){
+template <typename T> inline S_SortedData<T> MaxData(const S_SortedData<T> dataX, const S_SortedData<T> dataY, int *which){
     if(dataX.weight == dataY.weight){
         *which = 0;
         return dataX;
