@@ -45,7 +45,7 @@ void Json::Comparer::compare(const Json::Value compared, const Json::Value refer
     }
 }
 
-bool Json::Comparer::isIncluded(const std::string key = "") {
+bool Json::Comparer::isIncluded(const std::string key) {
     Json::Value differences = (key.size() == 0) ? (m_differences_roll_isSame) : (m_differences_roll_isSame[key]), differencesLevel;
     Json::Value::Members differences_keys = differences.getMemberNames();
     if(m_differences_roll_isSame["DIFFERENCESCOUNT"] != 0){
@@ -64,7 +64,7 @@ bool Json::Comparer::isIncluded(const std::string key = "") {
     return true;
 }
 
-bool Json::Comparer::isSame(const std::string key = ""){
+bool Json::Comparer::isSame(const std::string key){
     Json::Value compared = (key.size() == 0)?(m_compared):(m_compared[key]), referred = (key.size() == 0)?(m_referred):(m_referred[key]);
     if(compared == referred){
         return true;
