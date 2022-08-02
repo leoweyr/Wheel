@@ -65,7 +65,7 @@ N_File::C_Dir::C_Dir(const std::string path) {
 
 bool N_File::C_Dir::isExist(const int mode = 0) {
     if(_access(m_path.data(),0) == -1){
-        if(mode = 1){
+        if(mode == 1){
             _mkdir(m_path.data());
         }
         return false;
