@@ -1,7 +1,7 @@
-#include "SystemOperate.h"
+#include "System.h"
 
-bool ExeCmd(char* cmd,char* result){
-    char buffer[256];
+bool ExeCmd(const char* cmd,char* result){
+    char buffer[BUFFER_SIZE];
     FILE* pipe = _popen(cmd,"r");
     if(!pipe){
         return false;
@@ -12,38 +12,6 @@ bool ExeCmd(char* cmd,char* result){
         }
     }
     _pclose(pipe);
-    std::string result_str = result;
-    StringToChar(result,result_str);
-    return true;
-}
-
-bool CopyFile(std::string destDir,std::string sourcePath){
-    FILE *sourceFile = fopen(sourcePath.data(),"rb");
-    if(!sourceFile){
-        return false;
-    }
-    if(_access(destDir.data(),0) == -1){
-        if(_mkdir(destDir.data()) == -1){
-            return false;
-        }
-    }
-    std::string destPath = destDir + "\\" + StringSplit(sourcePath,"\\")[StringSplit(sourcePath,"\\").size() - 1];
-    FILE *destFile = fopen(destPath.data(),"wb");
-    if(!destFile){
-        return false;
-    }
-    unsigned char *buffer;
-    unsigned int len;
-    fseek(sourceFile,0,SEEK_END);
-    len = ftell(sourceFile);
-    buffer = new unsigned char[len+1];
-    memset(buffer,0,len+1);
-    fseek(sourceFile,0,SEEK_SET);
-    fread(buffer,len,1,sourceFile);
-    fwrite(buffer,len,1,destFile);
-    fclose(sourceFile);
-    fclose(destFile);
-    delete [] buffer;
     return true;
 }
 
@@ -96,3 +64,35 @@ bool IsProcessExist(DWORD processID)
         }
     }
 }
+
+/*TODO:Porting to other Wheel.
+bool CopyFile(std::string destDir,std::string sourcePath){
+    FILE *sourceFile = fopen(sourcePath.data(),"rb");
+    if(!sourceFile){
+        return false;
+    }
+    if(_access(destDir.data(),0) == -1){
+        if(_mkdir(destDir.data()) == -1){
+            return false;
+        }
+    }
+    std::string destPath = destDir + "\\" + StringSplit(sourcePath,"\\")[StringSplit(sourcePath,"\\").size() - 1];
+    FILE *destFile = fopen(destPath.data(),"wb");
+    if(!destFile){
+        return false;
+    }
+    unsigned char *buffer;
+    unsigned int len;
+    fseek(sourceFile,0,SEEK_END);
+    len = ftell(sourceFile);
+    buffer = new unsigned char[len+1];
+    memset(buffer,0,len+1);
+    fseek(sourceFile,0,SEEK_SET);
+    fread(buffer,len,1,sourceFile);
+    fwrite(buffer,len,1,destFile);
+    fclose(sourceFile);
+    fclose(destFile);
+    delete [] buffer;
+    return true;
+}
+*/
