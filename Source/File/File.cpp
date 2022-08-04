@@ -17,6 +17,10 @@ N_File::C_File::C_File(const std::string path) {
     }
 }
 
+bool N_File::C_File::isExist() {
+    return (_access(m_path.data(),0) == -1)?(false):(true);
+}
+
 bool N_File::C_File::Read(std::string &content) {
     std::fstream file;
     file.open(m_path.data(), std::ios::in);

@@ -29,6 +29,7 @@ namespace N_File{
 
         public:
             C_File(const std::string path);
+            bool isExist();
             bool Read(std::string &content);
             bool Read(Json::Value &content);
             void Write(const std::string content);
