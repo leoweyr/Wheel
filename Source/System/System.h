@@ -20,5 +20,3 @@ bool ExeCmd(const char* cmd,char* result);
 DWORD QueryProcessID(std::string processName);
 
 bool IsProcessExist(DWORD processID);
-
-//bool CopyFile(std::string destDir,std::string sourcePath);

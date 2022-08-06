@@ -63,6 +63,42 @@ void N_File::C_File::Write(const Json::Value content) {
     file.close();
 }
 
+bool N_File::C_File::Delete() {
+    if(remove(m_path.data()) == 0){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+int N_File::C_File::Copy(const std::string destPath) {
+    std::ifstream sourceFile;
+    std::ofstream destFile;
+    sourceFile.open(m_path.data(),std::ios::binary);
+    if(sourceFile.fail()){
+        return -1;
+    }
+    destFile.open(C_File(destPath).m_path.data(),std::ios::binary);
+    if(destFile.fail()){
+        return -2;
+    }
+    destFile << sourceFile.rdbuf();
+    destFile.close();
+    sourceFile.close();
+    return 0;
+}
+
+int N_File::C_File::Move(const std::string destPath) {
+    int errorCode = Copy(destPath.data());
+    if(errorCode != 0){
+        return errorCode;
+    }
+    if(Delete() != true){
+        return -3;
+    }
+    return 0;
+}
+
 N_File::C_Dir::C_Dir(const std::string path) {
         m_path = path;
 }

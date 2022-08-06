@@ -64,35 +64,3 @@ bool IsProcessExist(DWORD processID)
         }
     }
 }
-
-/*TODO:Porting to other Wheel.
-bool CopyFile(std::string destDir,std::string sourcePath){
-    FILE *sourceFile = fopen(sourcePath.data(),"rb");
-    if(!sourceFile){
-        return false;
-    }
-    if(_access(destDir.data(),0) == -1){
-        if(_mkdir(destDir.data()) == -1){
-            return false;
-        }
-    }
-    std::string destPath = destDir + "\\" + StringSplit(sourcePath,"\\")[StringSplit(sourcePath,"\\").size() - 1];
-    FILE *destFile = fopen(destPath.data(),"wb");
-    if(!destFile){
-        return false;
-    }
-    unsigned char *buffer;
-    unsigned int len;
-    fseek(sourceFile,0,SEEK_END);
-    len = ftell(sourceFile);
-    buffer = new unsigned char[len+1];
-    memset(buffer,0,len+1);
-    fseek(sourceFile,0,SEEK_SET);
-    fread(buffer,len,1,sourceFile);
-    fwrite(buffer,len,1,destFile);
-    fclose(sourceFile);
-    fclose(destFile);
-    delete [] buffer;
-    return true;
-}
-*/

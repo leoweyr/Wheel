@@ -34,6 +34,9 @@ namespace N_File{
             bool Read(Json::Value &content);
             void Write(const std::string content);
             void Write(const Json::Value content);
+            bool Delete();
+            int Copy(const std::string destPath);
+            int Move(const std::string destPath);
     };
 
     class C_Dir{
