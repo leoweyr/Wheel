@@ -5,13 +5,8 @@
 
 #include <string>
 #include <cstring>
-#include <vector>
 
 #include <Tlhelp32.h>
-
-//#include "../../Lib/Bitscode/Bitscode.h"
-
-//#pragma comment(lib,"../../Lib/Bitscode/Bitscode.lib")
 
 #define BUFFER_SIZE 256
 

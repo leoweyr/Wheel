@@ -2,6 +2,7 @@
 
 bool ExeCmd(const char* cmd,char* result){
     char buffer[BUFFER_SIZE];
+    std::strcpy(result,"");
     FILE* pipe = _popen(cmd,"r");
     if(!pipe){
         return false;
