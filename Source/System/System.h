@@ -9,11 +9,11 @@
 #include <Tlhelp32.h>
 #include "../../Lib/Bitscode/Bitscode.h"
 
-#pragma comment(lib, "../../Lib/Bitscode/Bitscode")
+#pragma comment(lib, "../../Lib/Bitscode/Bitscode.lib")
 
 #define BUFFER_SIZE 256
-#define CURRENT_EXE_PATH N_File::GetCurrentExePath()
-#define CURRENT_WORKING_DIRECTORY_PATH N_File::GetCurrentWorkingDirectoryPath()
+#define CURRENT_EXE_PATH GetCurrentExePath()
+#define CURRENT_WORKING_DIRECTORY_PATH GetCurrentWorkingDirectoryPath()
 
 bool ExeCmd(const char* cmd,char* result = nullptr);
 
