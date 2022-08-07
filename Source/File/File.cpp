@@ -128,19 +128,3 @@ std::vector <std::string> N_File::C_Dir::List() {
     }
     return filesName;
 }
-
-std::string N_File::GetCurrentExePath() {
-    char currentExePath[MAX_PATH];
-    GetModuleFileName(NULL,(LPSTR)currentExePath, sizeof(currentExePath));
-    std::string currentExePath_str;
-    CharToString(currentExePath_str, currentExePath);
-    return currentExePath_str;
-}
-
-std::string N_File::GetCurrentWorkingDirectoryPath() {
-    char *currentWorkingDirectoryPath;
-    currentWorkingDirectoryPath = getcwd(NULL, 0);
-    std::string currentWorkingDirectoryPath_str = currentWorkingDirectoryPath;
-    free(currentWorkingDirectoryPath);
-    return currentWorkingDirectoryPath_str;
-}

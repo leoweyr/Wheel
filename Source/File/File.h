@@ -13,9 +13,6 @@
 #pragma comment(lib,"../../Lib/Jsoncpp/Jsoncpp.lib")
 #pragma comment(lib,"../../Lib/Bitscode/Bitscode.lib")
 
-#define CURRENT_EXE_PATH N_File::GetCurrentExePath()
-#define CURRENT_WORKING_DIRECTORY_PATH N_File::GetCurrentWorkingDirectoryPath()
-
 /*
 #include <string>
 #include <vector>
@@ -46,7 +43,4 @@ namespace N_File{
             bool isExist(const int mode = 0);
             std::vector<std::string> List();
     };
-
-    std::string GetCurrentExePath();
-    std::string GetCurrentWorkingDirectoryPath();
 }

@@ -2,18 +2,44 @@
 
 bool ExeCmd(const char* cmd,char* result){
     char buffer[BUFFER_SIZE];
-    std::strcpy(result,"");
     FILE* pipe = _popen(cmd,"r");
     if(!pipe){
         return false;
     }
-    while (!feof(pipe)){
-        if(fgets(buffer,256,pipe)){
-            std::strcat(result,buffer);
+    if(result != nullptr){
+        std::strcpy(result,"");
+        while (!feof(pipe)){
+            if(fgets(buffer,BUFFER_SIZE,pipe)){
+                std::strcat(result,buffer);
+            }
         }
     }
     _pclose(pipe);
     return true;
+}
+
+std::string GetCurrentExePath() {
+    char currentExePath[MAX_PATH];
+    GetModuleFileName(NULL,(LPSTR)currentExePath, sizeof(currentExePath));
+    std::string currentExePath_str;
+    CharToString(currentExePath_str, currentExePath);
+    return currentExePath_str;
+}
+
+std::string GetCurrentWorkingDirectoryPath() {
+    char *currentWorkingDirectoryPath;
+    currentWorkingDirectoryPath = getcwd(NULL, 0);
+    std::string currentWorkingDirectoryPath_str = currentWorkingDirectoryPath;
+    free(currentWorkingDirectoryPath);
+    return currentWorkingDirectoryPath_str;
+}
+
+bool SetCurrentWorkingDirectoryPath(std::string path){
+    if(chdir(path.data()) == -1){
+        return false;
+    }else{
+        return true;
+    }
 }
 
 DWORD QueryProcessID(std::string processName) {
