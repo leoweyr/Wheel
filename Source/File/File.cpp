@@ -1,5 +1,16 @@
 #include "File.h"
 
+int N_File::Is(const std::string path) {
+    struct stat buffer;
+    if(stat(path.data(),&buffer) == 0 && S_ISREG(buffer.st_mode)){
+        return IS_FILE;
+    }else if(stat(path.data(),&buffer) == 0 && S_ISDIR(buffer.st_mode)){
+        return IS_DIR;
+    } else{
+        return IS_NULL;
+    }
+}
+
 N_File::C_File::C_File(const std::string path) {
     m_path = path;
     for(size_t i=0,iMax=StringSplit(m_path,"\\").size();i < iMax - 1;i++){
@@ -114,7 +125,7 @@ bool N_File::C_Dir::isExist(const int mode) {
     }
 }
 
-std::vector <std::string> N_File::C_Dir::List() {
+std::vector<std::string> N_File::C_Dir::List() {
     std::vector<std::string> filesName;
     intptr_t hFile = 0;
     _finddata_t filesInfo;
@@ -127,4 +138,24 @@ std::vector <std::string> N_File::C_Dir::List() {
         _findclose(hFile);
     }
     return filesName;
+}
+
+bool N_File::C_Dir::Delete(const std::string path) {
+    const_cast<std::string &>(path) = (m_delete_roll = 0)?(m_path):(path);
+    C_Dir currentDir(path.data());
+    std::vector<std::string> subFiles;
+    subFiles = currentDir.List();
+    for (std::vector<std::string>::iterator subFiles_iter = subFiles.begin(); subFiles_iter != subFiles.end(); subFiles_iter++) {
+        if(Is(path + "\\" + (*subFiles_iter)) == IS_FILE){
+            if(remove((path + "\\" + (*subFiles_iter)).data()) != 0){
+                return false;
+            }
+        }else if(Is(path + "\\" + (*subFiles_iter)) == IS_DIR){
+            m_delete_roll ++;
+            Delete(path + "\\" + (*subFiles_iter));
+            m_delete_roll --;
+        }
+    }
+    rmdir(path.data());
+    return true;
 }
