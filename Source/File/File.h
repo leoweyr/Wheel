@@ -51,6 +51,6 @@ namespace N_File{
             C_Dir(const std::string path);
             bool isExist(const int mode = 0);
             std::vector<std::string> List();
-            bool Delete(const std::string path);
+            bool Delete(const std::string path = "");
     };
 }
