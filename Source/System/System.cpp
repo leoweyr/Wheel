@@ -23,6 +23,9 @@ std::string GetCurrentExePath() {
     GetModuleFileName(NULL,(LPSTR)currentExePath, sizeof(currentExePath));
     std::string currentExePath_str;
     CharToString(currentExePath_str, currentExePath);
+    std::vector<std::string> currentExePath_str_split = StringSplit(currentExePath_str,"\\");
+    currentExePath_str_split.erase(currentExePath_str_split.end());
+    currentExePath_str = StringUnite(currentExePath_str_split,"\\");
     return currentExePath_str;
 }
 
