@@ -123,31 +123,42 @@ static inline char getDecimalPoint() {
 
 /// Converts a unicode code-point to UTF-8.
 static inline String codePointToUTF8(unsigned int cp) {
-  String result;
+    String result;
 
-  // based on description from http://en.wikipedia.org/wiki/UTF-8
+    // based on description from http://en.wikipedia.org/wiki/UTF-8
 
-  if (cp <= 0x7f) {
-    result.resize(1);
-    result[0] = static_cast<char>(cp);
-  } else if (cp <= 0x7FF) {
-    result.resize(2);
-    result[1] = static_cast<char>(0x80 | (0x3f & cp));
-    result[0] = static_cast<char>(0xC0 | (0x1f & (cp >> 6)));
-  } else if (cp <= 0xFFFF) {
-    result.resize(3);
-    result[2] = static_cast<char>(0x80 | (0x3f & cp));
-    result[1] = static_cast<char>(0x80 | (0x3f & (cp >> 6)));
-    result[0] = static_cast<char>(0xE0 | (0xf & (cp >> 12)));
-  } else if (cp <= 0x10FFFF) {
-    result.resize(4);
-    result[3] = static_cast<char>(0x80 | (0x3f & cp));
-    result[2] = static_cast<char>(0x80 | (0x3f & (cp >> 6)));
-    result[1] = static_cast<char>(0x80 | (0x3f & (cp >> 12)));
-    result[0] = static_cast<char>(0xF0 | (0x7 & (cp >> 18)));
-  }
+    if (cp <= 0x7f) {
+        result.resize(1);
+        result[0] = static_cast<char>(cp);
+    } else if (cp <= 0x7FF) {
+        result.resize(2);
+        result[1] = static_cast<char>(0x80 | (0x3f & cp));
+        result[0] = static_cast<char>(0xC0 | (0x1f & (cp >> 6)));
+    } else if (cp <= 0xFFFF) {
+        result.resize(3);
+        result[2] = static_cast<char>(0x80 | (0x3f & cp));
+        result[1] = static_cast<char>(0x80 | (0x3f & (cp >> 6)));
+        result[0] = static_cast<char>(0xE0 | (0xf & (cp >> 12)));
+    } else if (cp <= 0x10FFFF) {
+        result.resize(4);
+        result[3] = static_cast<char>(0x80 | (0x3f & cp));
+        result[2] = static_cast<char>(0x80 | (0x3f & (cp >> 6)));
+        result[1] = static_cast<char>(0x80 | (0x3f & (cp >> 12)));
+        result[0] = static_cast<char>(0xF0 | (0x7 & (cp >> 18)));
+    }
+    //Support GBK2312 Chinese.
+    else if ((cp >= 0x2E80 && cp <= 0xA4CF) || (cp >= 0xF900 && cp <= 0xFAFF) || (cp >= 0xFE30 && cp <= 0xFE4F) || (cp >= 0xFF00 && cp <= 0xFFEF) || (cp >= 0x2160 && cp <= 0x2169)) {
+        wchar_t src[2] = L"";
+        char dest[5] = "";
+        src[0] = static_cast<wchar_t>(cp);
+        std::string curLocale = setlocale(LC_ALL, NULL);
+        setlocale(LC_ALL, "chs");
+        wcstombs_s(NULL, dest, 5, src, 2);
+        result = dest;
+        setlocale(LC_ALL, curLocale.c_str());
+    }
 
-  return result;
+    return result;
 }
 
 enum {
@@ -4381,6 +4392,7 @@ static String valueToQuotedStringN(const char* value, size_t length,
     // Should add a flag to allow this compatibility mode and prevent this
     // sequence from occurring.
     default: {
+        /*
       if (emitUTF8) {
         unsigned codepoint = static_cast<unsigned char>(*c);
         if (codepoint < 0x20) {
@@ -4404,6 +4416,8 @@ static String valueToQuotedStringN(const char* value, size_t length,
           appendHex(result, 0xdc00 + (codepoint & 0x3ff));
         }
       }
+         */
+        result += *c; //support Chinese
     } break;
     }
   }
