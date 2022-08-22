@@ -28,7 +28,7 @@ N_File::C_File::C_File(const std::string path) {
     }
 }
 
-bool N_File::C_File::isExist() {
+bool N_File::C_File::IsExist() {
     return (_access(m_path.data(),0) == -1)?(false):(true);
 }
 
@@ -114,10 +114,17 @@ N_File::C_Dir::C_Dir(const std::string path) {
         m_path = path;
 }
 
-bool N_File::C_Dir::isExist(const int mode) {
+bool N_File::C_Dir::IsExist(const int mode) {
     if(_access(m_path.data(),0) == -1){
         if(mode == 1){
-            _mkdir(m_path.data());
+            std::string pathLevel;
+            std::vector<std::string> m_path_split = StringSplit(m_path,"\\");
+            for (std::vector<std::string>::iterator m_path_split_iter = m_path_split.begin(); m_path_split_iter != m_path_split.end(); m_path_split_iter++) {
+                pathLevel += (*m_path_split_iter) + "\\";
+                if(C_Dir(pathLevel).IsExist() == false){
+                    _mkdir(pathLevel.data());
+                }
+            }
         }
         return false;
     }else{
